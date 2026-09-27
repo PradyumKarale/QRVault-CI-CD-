@@ -27,10 +27,14 @@ def init_db():
 def home():
     global qr_image_data
 
+    error = None
+
     if request.method == "POST":
         content = request.form.get("content", "").strip()
 
-        if content:
+        if not content:
+            error = "Please enter a URL or text."
+        else:
             qr = qrcode.make(content)
 
             image_stream = io.BytesIO()
@@ -50,7 +54,8 @@ def home():
 
     return render_template(
         "index.html",
-        qr_available=qr_image_data is not None
+        qr_available=qr_image_data is not None,
+        error=error
     )
 
 
@@ -76,6 +81,7 @@ def download_qr():
         as_attachment=True,
         download_name="qrvault.png"
     )
+
 
 @app.route("/history")
 def history():
@@ -105,6 +111,7 @@ def history():
         search=search
     )
 
+
 @app.route("/delete/<int:qr_id>", methods=["POST"])
 def delete_qr(qr_id):
     conn = sqlite3.connect("qrvault.db")
@@ -119,6 +126,7 @@ def delete_qr(qr_id):
     conn.close()
 
     return redirect("/history")
+
 
 @app.route("/health")
 def health():

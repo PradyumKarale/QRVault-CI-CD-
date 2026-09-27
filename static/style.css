@@ -161,3 +161,12 @@ button:hover {
     width: auto;
     padding: 12px 20px;
 }
+
+.error-message {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #fee2e2;
+    color: #b91c1c;
+    border-radius: 6px;
+    text-align: left;
+}
