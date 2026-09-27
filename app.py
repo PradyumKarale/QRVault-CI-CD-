@@ -120,6 +120,10 @@ def delete_qr(qr_id):
 
     return redirect("/history")
 
+@app.route("/health")
+def health():
+    return {"status": "healthy"}
+
 
 if __name__ == "__main__":
     init_db()
