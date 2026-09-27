@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>QRVault</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
 </head>
 
 <body>
@@ -21,7 +26,8 @@
 
             <h2>Generate QR Code</h2>
 
-            <form>
+            <form method="POST">
+
                 <label for="content">
                     Enter URL or Text
                 </label>
@@ -31,12 +37,27 @@
                     id="content"
                     name="content"
                     placeholder="https://example.com"
+                    required
                 >
 
                 <button type="submit">
                     Generate QR
                 </button>
+
             </form>
+
+            {% if qr_available %}
+                <div class="qr-result">
+
+                    <h3>Your QR Code</h3>
+
+                    <img
+                        src="{{ url_for('qr_image') }}"
+                        alt="Generated QR Code"
+                    >
+
+                </div>
+            {% endif %}
 
         </div>
 
