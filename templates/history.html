@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>QR History - QRVault</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>QRVault</h1>
+
+        <p class="subtitle">
+            QR Code History
+        </p>
+
+        <div class="card">
+
+            <h2>Generated QR Codes</h2>
+
+            {% if qr_codes %}
+
+                <div class="history-list">
+
+                    {% for qr in qr_codes %}
+
+                        <div class="history-item">
+                            <span class="history-id">
+                                #{{ qr[0] }}
+                            </span>
+
+                            <span class="history-content">
+                                {{ qr[1] }}
+                            </span>
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <p>No QR codes generated yet.</p>
+
+            {% endif %}
+
+            <a
+                href="{{ url_for('home') }}"
+                class="download-btn"
+            >
+                Generate New QR
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

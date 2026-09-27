@@ -77,6 +77,24 @@ def download_qr():
         download_name="qrvault.png"
     )
 
+@app.route("/history")
+def history():
+    conn = sqlite3.connect("qrvault.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT id, content FROM qr_codes ORDER BY id DESC"
+    )
+
+    qr_codes = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        "history.html",
+        qr_codes=qr_codes
+    )
+
 
 if __name__ == "__main__":
     init_db()

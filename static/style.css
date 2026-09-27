@@ -109,3 +109,24 @@ button:hover {
 .download-btn:hover {
     opacity: 0.9;
 }
+
+.history-list {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.history-item {
+    display: flex;
+    gap: 15px;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.history-id {
+    font-weight: bold;
+    min-width: 35px;
+}
+
+.history-content {
+    word-break: break-word;
+}
