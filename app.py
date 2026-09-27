@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, redirect
 import qrcode
 import io
 import sqlite3
@@ -94,6 +94,21 @@ def history():
         "history.html",
         qr_codes=qr_codes
     )
+
+@app.route("/delete/<int:qr_id>", methods=["POST"])
+def delete_qr(qr_id):
+    conn = sqlite3.connect("qrvault.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "DELETE FROM qr_codes WHERE id = ?",
+        (qr_id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/history")
 
 
 if __name__ == "__main__":

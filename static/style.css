@@ -130,3 +130,18 @@ button:hover {
 .history-content {
     word-break: break-word;
 }
+
+.delete-btn {
+    width: auto;
+    padding: 7px 12px;
+    background: #dc2626;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    opacity: 0.85;
+}
+
+.history-item form {
+    margin-left: auto;
+}

@@ -33,6 +33,7 @@
                     {% for qr in qr_codes %}
 
                         <div class="history-item">
+
                             <span class="history-id">
                                 #{{ qr[0] }}
                             </span>
@@ -40,6 +41,19 @@
                             <span class="history-content">
                                 {{ qr[1] }}
                             </span>
+
+                            <form
+                                method="POST"
+                                action="{{ url_for('delete_qr', qr_id=qr[0]) }}"
+                            >
+                                <button
+                                    type="submit"
+                                    class="delete-btn"
+                                >
+                                    Delete
+                                </button>
+                            </form>
+
                         </div>
 
                     {% endfor %}
