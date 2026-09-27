@@ -37,6 +37,17 @@ def home():
             qr.save(image_stream, format="PNG")
             qr_image_data = image_stream.getvalue()
 
+            conn = sqlite3.connect("qrvault.db")
+            cursor = conn.cursor()
+
+            cursor.execute(
+                "INSERT INTO qr_codes (content) VALUES (?)",
+                (content,)
+            )
+
+            conn.commit()
+            conn.close()
+
     return render_template(
         "index.html",
         qr_available=qr_image_data is not None
