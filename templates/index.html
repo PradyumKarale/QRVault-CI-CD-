@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRVault</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>QRVault</h1>
+
+        <p class="subtitle">
+            QR Code Generator & History Manager
+        </p>
+
+        <div class="card">
+
+            <h2>Generate QR Code</h2>
+
+            <form>
+                <label for="content">
+                    Enter URL or Text
+                </label>
+
+                <input
+                    type="text"
+                    id="content"
+                    name="content"
+                    placeholder="https://example.com"
+                >
+
+                <button type="submit">
+                    Generate QR
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
