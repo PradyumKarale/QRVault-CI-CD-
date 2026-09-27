@@ -1,0 +1,14 @@
+services:
+  qrvault:
+    build: .
+    container_name: qrvault-container
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_PATH: /app/data/qrvault.db
+    volumes:
+      - qrvault_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  qrvault_data:
