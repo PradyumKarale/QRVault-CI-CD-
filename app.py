@@ -2,14 +2,17 @@ from flask import Flask, render_template, request, send_file, redirect
 import qrcode
 import io
 import sqlite3
+import os
 
 app = Flask(__name__)
 
 qr_image_data = None
 
+DATABASE_PATH = os.getenv("DATABASE_PATH", "qrvault.db")
+
 
 def init_db():
-    conn = sqlite3.connect("qrvault.db")
+    conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -21,6 +24,9 @@ def init_db():
 
     conn.commit()
     conn.close()
+
+
+init_db()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -41,7 +47,7 @@ def home():
             qr.save(image_stream, format="PNG")
             qr_image_data = image_stream.getvalue()
 
-            conn = sqlite3.connect("qrvault.db")
+            conn = sqlite3.connect(DATABASE_PATH)
             cursor = conn.cursor()
 
             cursor.execute(
@@ -87,7 +93,7 @@ def download_qr():
 def history():
     search = request.args.get("search", "").strip()
 
-    conn = sqlite3.connect("qrvault.db")
+    conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
 
     if search:
@@ -114,7 +120,7 @@ def history():
 
 @app.route("/delete/<int:qr_id>", methods=["POST"])
 def delete_qr(qr_id):
-    conn = sqlite3.connect("qrvault.db")
+    conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
 
     cursor.execute(
@@ -134,5 +140,4 @@ def health():
 
 
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True)
