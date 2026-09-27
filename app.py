@@ -1,10 +1,26 @@
 from flask import Flask, render_template, request, send_file
 import qrcode
 import io
+import sqlite3
 
 app = Flask(__name__)
 
 qr_image_data = None
+
+
+def init_db():
+    conn = sqlite3.connect("qrvault.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS qr_codes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            content TEXT NOT NULL
+        )
+    """)
+
+    conn.commit()
+    conn.close()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -37,6 +53,7 @@ def qr_image():
         mimetype="image/png"
     )
 
+
 @app.route("/download-qr")
 def download_qr():
     if qr_image_data is None:
@@ -51,4 +68,5 @@ def download_qr():
 
 
 if __name__ == "__main__":
+    init_db()
     app.run(debug=True)
