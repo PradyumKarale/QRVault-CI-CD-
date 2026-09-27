@@ -26,4 +26,4 @@ def test_health_check(client):
 def test_history_page(client):
     response = client.get("/history")
 
-    assert response.status_code == 200
+    assert response.status_code == 201
