@@ -47,6 +47,7 @@
             </form>
 
             {% if qr_available %}
+
                 <div class="qr-result">
 
                     <h3>Your QR Code</h3>
@@ -56,7 +57,15 @@
                         alt="Generated QR Code"
                     >
 
+                    <a
+                        href="{{ url_for('download_qr') }}"
+                        class="download-btn"
+                    >
+                        Download QR
+                    </a>
+
                 </div>
+
             {% endif %}
 
         </div>

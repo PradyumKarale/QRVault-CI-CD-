@@ -37,6 +37,18 @@ def qr_image():
         mimetype="image/png"
     )
 
+@app.route("/download-qr")
+def download_qr():
+    if qr_image_data is None:
+        return "No QR code generated yet.", 404
+
+    return send_file(
+        io.BytesIO(qr_image_data),
+        mimetype="image/png",
+        as_attachment=True,
+        download_name="qrvault.png"
+    )
+
 
 if __name__ == "__main__":
     app.run(debug=True)
