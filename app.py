@@ -79,12 +79,21 @@ def download_qr():
 
 @app.route("/history")
 def history():
+    search = request.args.get("search", "").strip()
+
     conn = sqlite3.connect("qrvault.db")
     cursor = conn.cursor()
 
-    cursor.execute(
-        "SELECT id, content FROM qr_codes ORDER BY id DESC"
-    )
+    if search:
+        cursor.execute(
+            "SELECT id, content FROM qr_codes "
+            "WHERE content LIKE ? ORDER BY id DESC",
+            (f"%{search}%",)
+        )
+    else:
+        cursor.execute(
+            "SELECT id, content FROM qr_codes ORDER BY id DESC"
+        )
 
     qr_codes = cursor.fetchall()
 
@@ -92,7 +101,8 @@ def history():
 
     return render_template(
         "history.html",
-        qr_codes=qr_codes
+        qr_codes=qr_codes,
+        search=search
     )
 
 @app.route("/delete/<int:qr_id>", methods=["POST"])

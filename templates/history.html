@@ -26,6 +26,25 @@
 
             <h2>Generated QR Codes</h2>
 
+            <form
+                method="GET"
+                action="{{ url_for('history') }}"
+                class="search-form"
+            >
+
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search QR history..."
+                    value="{{ search }}"
+                >
+
+                <button type="submit">
+                    Search
+                </button>
+
+            </form>
+
             {% if qr_codes %}
 
                 <div class="history-list">
@@ -62,7 +81,9 @@
 
             {% else %}
 
-                <p>No QR codes generated yet.</p>
+                <p>
+                    No matching QR codes found.
+                </p>
 
             {% endif %}
 

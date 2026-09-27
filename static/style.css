@@ -145,3 +145,19 @@ button:hover {
 .history-item form {
     margin-left: auto;
 }
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.search-form input {
+    margin-bottom: 0;
+    flex: 1;
+}
+
+.search-form button {
+    width: auto;
+    padding: 12px 20px;
+}
