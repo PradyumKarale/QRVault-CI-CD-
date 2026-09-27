@@ -3,8 +3,9 @@ services:
     build: .
     container_name: qrvault-container
     ports:
-      - "5000:5000"
+      - "5000:10000"
     environment:
+      PORT: 10000
       DATABASE_PATH: /app/data/qrvault.db
     volumes:
       - qrvault_data:/app/data
